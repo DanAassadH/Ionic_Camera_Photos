@@ -21,9 +21,19 @@
     </ion-list>
     <ion-button type="submit" expand="block">Save</ion-button>
   </form>
+
+   <ion-button type="button" fill="clear" @click="takeVideo">
+          <ion-icon slot="start" :icon="camera"></ion-icon>
+          Take Video
+        </ion-button>
+
+
 </template>
 
 <script>
+
+import { MediaCapture} from '@ionic-native/media-capture';
+
 import {
   IonList,
   IonItem,
@@ -74,6 +84,20 @@ export default {
       };
       this.$emit("save-memory", memoryData);
     },
+
+    async takeVideo() {
+ try{
+               let options = {
+               limit: 1,
+               duration: 30
+           }
+          let video = await MediaCapture.captureVideo(options);
+          console.log(video);
+           } catch(error) {
+               console.log(error);
+           }  
+    },
+    
   },
 };
 </script>
